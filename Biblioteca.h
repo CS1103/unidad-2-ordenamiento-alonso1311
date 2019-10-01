@@ -1,9 +1,9 @@
 //
-// Created by ALONSO on 1/10/2019.
+// Created by ALONSO on 26/09/2019.
 //
 
-#ifndef SORTMETHODS_BIBLIOTECA_H
-#define SORTMETHODS_BIBLIOTECA_H
+#ifndef UNIDAD2_PROYECTO_BIBLIOTECA_H
+#define UNIDAD2_PROYECTO_BIBLIOTECA_H
 
 #include "Definiciones.h"
 
@@ -16,65 +16,66 @@ public:
     Biblioteca(const vector<T> &valores) : valores(valores) {}
 
     //----------------------------- MERGE ------------------------------------------------
-    void mergeSort (vector<T>& v, int izquierda, int medio, int derecha){
-        int size_izquierda = medio - izquierda + 1;
-        int size_derecha = derecha - medio;
-        vector<T> v_izquierda(size_izquierda);
-        vector<T> v_derecha(size_derecha);
+    void merge(vector<T> &v, itr init, itr mid, itr last){
 
-        for (int i = 0; i < size_izquierda; ++i)
-            v_izquierda[i] = v[izquierda + 1];
+        vector<T> v_izquierda((mid-init)+1);
+        vector<T> v_derecha(last-mid);
 
-        for (int j = 0; j < size_derecha; ++j)
-            v_derecha[j] = v[medio + 1 + j];
+        auto inic = init;
+        auto mit = mid+1;
 
-        int index_izquierda = 0;
-        int index_derecha = 0;
-        int size_v = izquierda;
-        while ((index_izquierda < size_izquierda) and (index_derecha < size_derecha)){
-            if (v_izquierda[index_izquierda] <= v_derecha[index_derecha]){
-                v[size_v] = v_izquierda[index_izquierda];
-                index_izquierda++;
+        for(auto it = v_izquierda.begin(); it != v_izquierda.end(); it++){
+            *it = *inic;
+            inic++;
+        }
+        for(auto it = v_derecha.begin(); it != v_derecha.end(); it++){
+            *it = *mit;
+            mit++;
+        }
+
+        auto i = v_izquierda.begin();
+        auto j = v_derecha.begin();
+        auto k = init;
+
+        while(i != v_izquierda.end() && j != v_derecha.end()){
+            if(*i < *j){
+                *k = *i;
+                i++;
             }
             else {
-                v[size_v] = v_derecha[index_derecha];
-                index_derecha++;
+                *k = *j;
+                j++;
             }
-            size_v++;
+            k++;
         }
 
-        while (index_izquierda < size_izquierda){
-            v.push_back(v_izquierda[izquierda]);
-            v[size_v] = v_izquierda[index_izquierda];
-            index_izquierda++;
-            size_v++;
+        while(i != v_izquierda.end()){
+            *k = *i;
+            i++;
+            k++;
         }
-        while (index_derecha < size_derecha){
-            v[size_v] = v_derecha[index_derecha];
-            index_derecha++;
-            size_v++;
+        while(j != v_derecha.end()){
+            *k = *j;
+            j++;
+            k++;
         }
     }
 
-    void Unir(vector<T>& v, int izquierda, int derecha){
-        if (izquierda < derecha){
-            int medio = (derecha+izquierda)/2;
-
-            Unir(v, izquierda, medio);
-            Unir(v, medio+1, derecha);
-            mergeSort(v, izquierda, medio, derecha);
+    void mergesort(vector<T> &v,itr init,itr last){
+        if(init != last){
+            auto mid = init + (last-init)/2;
+            mergesort(v,init,mid);
+            mergesort(v,mid+1,last);
+            merge(v,init,mid,last);
         }
-
-
     }
 
     void Merge(){
-        Unir(valores, 0, valores.size()-1);
+        mergesort(valores, valores.begin(), valores.end());
     }
     //----------------------------- QUICK ------------------------------------------------
 
-    itr partition(itr left,itr right)
-    {
+    itr partition(itr left,itr right){
         itr i=left-1;
         itr it=left;
         while(it<right)
@@ -88,7 +89,7 @@ public:
         return ++i;
     }
 
-    void quicksort(std::vector<int>& v,itr left, itr right)
+    void quicksort(vector<T>& v,itr left, itr right)
     {
         if(distance(left,right)>=1)
         {
@@ -98,7 +99,7 @@ public:
         }
     }
     void Quick(){
-        quicksort(valores,begin(valores),end(valores)-1);
+        quicksort(valores, valores.begin(), valores.end());
     }
 
     //----------------------------- HEAP ------------------------------------------------
@@ -142,7 +143,7 @@ public:
     //----------------------------- SHELL ------------------------------------------------
 
     void Shell(){
-        int n = valores.size();
+     int n = valores.size();
         for (int gap = n/2; gap > 0; gap /= 2)
             for (int j = gap; j < n; ++j)
                 for (int k = j - gap; k >= 0; k -= gap) {
@@ -151,30 +152,22 @@ public:
                     else
                         swap(valores[k+gap], valores[k]);
                 }
-
-        /*auto last = valores.end();
-        auto init = valores.begin();
-        auto gap = next(init, valores.size()/2);
-
-           for (; gap != init ; gap /= 2) {
-               for (auto j = gap; j != last; ++j) {
-                   for (auto k = j - gap; k > init ; k -= gap) {
-                       if (*(k+gap) >= *k)
-                           break;
-                       else
-                           swap(*(k+gap), *k);
-                   }
-               }
-           }*/
     }
 
     //----------------------------- PRINT ------------------------------------------------
 
     void print(){
-        cout << "\nValores:\n";
+        cout << "Valores:\n";
         for(auto i = valores.begin(); i != valores.end(); i++)
             cout << *i << " ";
+        cout << endl;
+    }
+
+    T operator[](int index){
+        auto i = valores.begin();
+        return *i;
     }
 };
 
-#endif //SORTMETHODS_BIBLIOTECA_H
+
+#endif //UNIDAD2_PROYECTO_BIBLIOTECA_H

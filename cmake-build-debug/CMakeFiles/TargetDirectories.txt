@@ -1,0 +1,3 @@
+C:/Users/ALONSO/CLionProjects/POO II_Second/Unidad2_Proyecto/cmake-build-debug/CMakeFiles/Unidad2_Proyecto.dir
+C:/Users/ALONSO/CLionProjects/POO II_Second/Unidad2_Proyecto/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ALONSO/CLionProjects/POO II_Second/Unidad2_Proyecto/cmake-build-debug/CMakeFiles/rebuild_cache.dir

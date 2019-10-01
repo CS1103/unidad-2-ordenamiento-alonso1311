@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.10)
-project(SortMethods)
+cmake_minimum_required(VERSION 3.14)
+project(Unidad2_Proyecto)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
-add_executable(SortMethods main.cpp Biblioteca.h Sort_Test.cpp Definiciones.h)
+add_executable(Unidad2_Proyecto main.cpp)
