@@ -3,4 +3,4 @@ project(SortMethods)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(SortMethods main.cpp Sort.h Sort.cpp Sort_Test.cpp Definiciones.h)
+add_executable(SortMethods main.cpp Biblioteca.h Sort_Test.cpp Definiciones.h)
