@@ -90,7 +90,7 @@ public:
 
     void quicksort(std::vector<int>& v,itr left, itr right)
     {
-        if(distance(left,right)>=2)
+        if(distance(left,right)>=1)
         {
             auto mid=partition(left,right);
             quicksort(v,left,mid-1);
