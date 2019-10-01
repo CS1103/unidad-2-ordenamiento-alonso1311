@@ -7,6 +7,10 @@
 
 #include <iostream>
 #include <vector>
+#include <iterator>
+#include <algorithm>
+
+typedef std::vector<int>::iterator itr;
 
 using namespace std;
 
